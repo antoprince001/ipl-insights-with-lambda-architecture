@@ -1,1 +1,4 @@
 confluent-kafka==2.0.2
+pyspark
+duckdb
+pytest

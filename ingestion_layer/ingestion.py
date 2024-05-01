@@ -1,17 +1,5 @@
 from confluent_kafka import Consumer
-import signal
 
-running = True
-
-
-def stop_consumer(signal, frame):
-    global running
-    print("Stopping consumer...")
-    running = False
-
-
-# Register signal handler for SIGINT (Ctrl+C)
-signal.signal(signal.SIGINT, stop_consumer)
 
 c = Consumer({
     'bootstrap.servers': 'localhost:9092,localhost:9093,localhost:9094',

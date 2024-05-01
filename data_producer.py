@@ -3,7 +3,7 @@ import json
 
 
 p = Producer({
-    'bootstrap.servers' : 'localhost:9092,localhost:9093,localhost:9094'
+    'bootstrap.servers': 'localhost:9092,localhost:9093,localhost:9094'
 })
 
 print(p.list_topics().topics)
@@ -22,6 +22,7 @@ for i in range(10):
         'city': f'city-{i}',
         'message': f'message-{i}'
     }
+    print('produced')
     m = json.dumps(data)
     p.poll(0)
     p.produce('log', m.encode('utf-8'), callback=receipt)
