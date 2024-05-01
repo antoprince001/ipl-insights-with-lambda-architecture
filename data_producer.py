@@ -1,6 +1,6 @@
 from confluent_kafka import Producer
+import csv
 import json
-
 
 p = Producer({
     'bootstrap.servers': 'localhost:9092,localhost:9093,localhost:9094'
@@ -16,14 +16,19 @@ def receipt(err, msg):
         print('Message on topic on partition {}  with value of {}'.format(msg.topic(), msg.partition(), msg.value()))
 
 
-for i in range(10):
-    data = {
-        'name': f'name-{i}',
-        'city': f'city-{i}',
-        'message': f'message-{i}'
-    }
-    print('produced')
-    m = json.dumps(data)
-    p.poll(0)
-    p.produce('log', m.encode('utf-8'), callback=receipt)
-    p.flush()
+file_name = './src/data/335982.csv'
+
+with open(file_name, 'r', newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    headers = next(reader)
+
+    for row in reader:
+        data = {}
+        for i, value in enumerate(row):
+            data[headers[i]] = value
+        print(data)
+        print('produced')
+        m = json.dumps(data)
+        p.poll(0)
+        p.produce('ipl_event', m.encode('utf-8'), callback=receipt)
+        p.flush()

@@ -1,11 +1,11 @@
-import pandas as pd
-from utils.write_functions import write_to_csv
+from src.utils.write_functions import write_to_csv
+import os
+
 
 def write_to_batch_landing_zone(data):
-    file_name = 'data/raw/ipl_data.csv'
-    write_to_csv(data, file_name)
+    file_name = './ipl_data.csv'
+    if not os.path.exists(file_name):
+        write_to_csv(data.keys(), file_name, 'w+')      
+    write_to_csv(data.values(), file_name, 'a')
 
-def process_batch()
-    # load to duckdb etl
-    # transform
-    # write to where we want
+
