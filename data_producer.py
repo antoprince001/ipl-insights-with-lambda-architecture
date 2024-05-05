@@ -13,7 +13,7 @@ def receipt(err, msg):
     if err is not None:
         print('Error : {}'.format(err))
     else:
-        print('Message on topic on partition {}  with value of {}'.format(msg.topic(), msg.partition(), msg.value()))
+        print('Message on topic on partition {}  with value of {}'.format(msg.partition(), msg.value()))
 
 
 file_name = './src/data/335982.csv'

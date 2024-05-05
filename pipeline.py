@@ -34,4 +34,3 @@ while running:
 # batch - trigger sometime, transform and then warehouse
 
 # stream - deicd what to do
-
