@@ -29,7 +29,8 @@ def setup_consumer(topic):
 
 def ingestion_consumer(consumer):
     msg = consumer.poll(1.0)
-
+    print('in ingestion')
+    print(msg)
     if msg is not None:
         data = msg.value().decode('utf-8')
         return data

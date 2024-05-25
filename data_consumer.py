@@ -21,11 +21,11 @@ c = Consumer({
 
 print(c.list_topics().topics)
 
-c.subscribe(['log'])
+c.subscribe(['ipl_event'])
 
 while running:
     msg = c.poll(1.0)
-
+    print(msg)
     if msg is None:
         continue
 
