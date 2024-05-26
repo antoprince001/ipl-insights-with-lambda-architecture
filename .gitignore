@@ -7,3 +7,4 @@ cassandra/
 .env
 */.DS_Store
 DS_Store
+batch_processed_data/
