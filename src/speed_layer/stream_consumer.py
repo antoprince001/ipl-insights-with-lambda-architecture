@@ -10,6 +10,7 @@ def stream_job():
         .load()
     print('stream')
     # Write the streaming data to console and then stop
+    
     query = df \
         .writeStream \
         .outputMode("append") \

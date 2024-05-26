@@ -1,6 +1,7 @@
 from confluent_kafka import Producer
 import csv
 import json
+import time
 
 p = Producer({
     'bootstrap.servers': 'localhost:9092,localhost:9093,localhost:9094'
@@ -16,7 +17,8 @@ def receipt(err, msg):
         print('Message on topic on partition {}  with value of {}'.format(msg.partition(), msg.value()))
 
 
-file_name = './src/data/335982.csv'
+# file_name = './src/data/335982.csv'
+file_name = './ipl_data.csv'
 
 with open(file_name, 'r', newline='') as csvfile:
     reader = csv.reader(csvfile)
@@ -32,3 +34,4 @@ with open(file_name, 'r', newline='') as csvfile:
         p.poll(0)
         p.produce('ipl_event', m.encode('utf-8'), callback=receipt)
         p.flush()
+        time.sleep(0.5)

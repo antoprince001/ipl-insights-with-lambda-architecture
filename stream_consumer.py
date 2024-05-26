@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import from_json, col
+from pyspark.sql.functions import from_json, col, sum
 from pyspark.sql.types import StructType, StructField, StringType
 
 spark = SparkSession.builder.appName('com.spark-ipl-stream-analysis')    .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1").getOrCreate()
@@ -49,14 +49,16 @@ transformed_df = parsed_df.select("match_id", "season", "start_date", "venue", "
                            "batting_team", "bowling_team", "striker", "non_striker", "bowler", 
                            "runs_off_bat", "extras", "wides", "noballs", "byes", "legbyes", 
                            "penalty", "wicket_type", "player_dismissed", "other_wicket_type", 
-                           "other_player_dismissed") \
-                   .filter(col("batting_team") == "Kolkata Knight Riders")  # Example filter
+                           "other_player_dismissed") 
+                #    / .filter(col("batting_team") == "Kolkata Knight Riders")  # Example filter
 
+transformed_df = transformed_df.groupBy("match_id") \
+    .agg(sum("runs_off_bat").alias("total_runs"))
 
 # Write the streaming data to console and then stop
 query = transformed_df \
     .writeStream \
-    .outputMode("append") \
+    .outputMode("update") \
     .format("console") \
     .start()
 
