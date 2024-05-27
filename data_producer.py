@@ -34,4 +34,4 @@ with open(file_name, 'r', newline='') as csvfile:
         p.poll(0)
         p.produce('ipl_event', m.encode('utf-8'), callback=receipt)
         p.flush()
-        time.sleep(0.5)
+        time.sleep(10)

@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import from_json, col, sum
-from pyspark.sql.types import StructType, StructField, StringType
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
 spark = SparkSession.builder.appName('com.spark-ipl-stream-analysis')    .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1").getOrCreate()
 
@@ -16,7 +16,7 @@ schema = StructType([
     StructField("striker", StringType(), True),
     StructField("non_striker", StringType(), True),
     StructField("bowler", StringType(), True),
-    StructField("runs_off_bat", StringType(), True),
+    StructField("runs_off_bat", IntegerType(), True),
     StructField("extras", StringType(), True),
     StructField("wides", StringType(), True),
     StructField("noballs", StringType(), True),

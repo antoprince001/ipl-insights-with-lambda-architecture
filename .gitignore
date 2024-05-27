@@ -3,7 +3,6 @@ __pycache__/
 env/
 data/
 ipl_data.csv
-cassandra/
 .env
 */.DS_Store
 DS_Store
